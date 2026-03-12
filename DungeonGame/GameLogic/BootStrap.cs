@@ -16,12 +16,16 @@ namespace DungeonGame.GameLogic
         public static void Initialize()
         {
             var builder = new ContainerBuilder();
+
             builder.RegisterType<PlayerHandler>().SingleInstance();
             builder.RegisterType<CharacterHandler>().SingleInstance();
-            builder.RegisterType<RandomGenerator>().SingleInstance();
             builder.RegisterType<MonsterHandler>().SingleInstance();
             builder.RegisterType<PlayerDisplay>().As<IDisplay>().SingleInstance();
-            container = builder.Build();
+            builder.RegisterType<CharacterDisplay>().As<ICharacterDisplay>().As<IDisplay>().SingleInstance();
+            builder.RegisterType<GameHandler>().SingleInstance();
+
+            var container = builder.Build();
+
             var app = container.Resolve<GameHandler>();
             app.RunApp();
         }

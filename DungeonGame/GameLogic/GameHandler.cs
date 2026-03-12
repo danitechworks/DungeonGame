@@ -1,23 +1,22 @@
 ﻿using DungeonGame.Display;
 using DungeonGame.Entities;
+using DungeonGame.Monster;
+using DungeonGame.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
-using DungeonGame.Utilities;
-using DungeonGame.Monster;
 
 namespace DungeonGame.GameLogic
 {
     public class GameHandler
     {
-        private readonly IDisplay display;
         private readonly PlayerHandler playerHandler;
         private readonly CharacterHandler characterHandler;
         private readonly MonsterHandler monsterHandler;
 
-        public GameHandler(IDisplay display, PlayerHandler playerHandler, CharacterHandler characterHandler, MonsterHandler monsterHandler)
+        public GameHandler(PlayerHandler playerHandler, CharacterHandler characterHandler, MonsterHandler monsterHandler)
         {
-            this.display = display;
             this.playerHandler = playerHandler;
             this.characterHandler = characterHandler;
             this.monsterHandler = monsterHandler;
@@ -26,10 +25,17 @@ namespace DungeonGame.GameLogic
         public void RunApp()
         {
             Console.WriteLine("Welcome to the Dungeon Game!");
-            playerHandler.CreatePlayer();
-            characterHandler.CreateCharacter();
-            monsterHandler.CreateMonster();
+            var player = playerHandler.CreatePlayer();
+            var character = characterHandler.CreateCharacter();
+            var monster = monsterHandler.CreateMonster();
 
+            // debug
+            Console.WriteLine($"[DEBUG] Player created: {player.PlayerName}");
+            Console.WriteLine($"[DEBUG] Character created: {character.CharacterName}, Level: {character.Level}, Health: {character.Health}");
+            Console.WriteLine($"[DEBUG] Monster created: {monster.MonsterName}, Power: {monster.Power}, Health: {monster.Health}, GoldReward: {monster.GoldReward}");
+            Console.WriteLine("=== Debug complete ===");
+            Console.ReadKey();
+            // 
         }   
     }
 }

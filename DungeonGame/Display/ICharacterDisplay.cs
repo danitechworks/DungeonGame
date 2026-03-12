@@ -4,8 +4,8 @@ using System.Text;
 
 namespace DungeonGame.Display
 {
-    public interface IDisplay
+    public interface ICharacterDisplay
     {
-        void ShowBanner();
+        string DisplayCharacters(List<string> names);
     }
 }

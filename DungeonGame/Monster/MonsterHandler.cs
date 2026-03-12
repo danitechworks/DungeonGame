@@ -31,7 +31,7 @@ namespace DungeonGame.Monster
             "Void Stalker"
         };
 
-        public void CreateMonster()
+        public Monsters CreateMonster()
         {
             var nameIndex = RandomGenerator.SelectRandomMonster();
             var name = monsterNames[nameIndex];
@@ -39,6 +39,7 @@ namespace DungeonGame.Monster
             var health = RandomGenerator.SelectRandomHealth();
             var goldReward = RandomGenerator.SelectRandomGoldReward();
             var monster = new Monsters(name, power, health, goldReward);
+            return monster;
         }
     }
 }

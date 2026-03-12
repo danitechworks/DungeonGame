@@ -21,12 +21,17 @@ namespace DungeonGame.Entities
             "Assassin",
             "Druid"
         };
-        public void CreateCharacter()
+
+        private readonly ICharacterDisplay characterDisplay;
+        public CharacterHandler(ICharacterDisplay characterDisplay)
         {
-            var characterName = display.DisplayCharacters(characterOptions);
+            this.characterDisplay = characterDisplay;
+        }
+        public Character CreateCharacter()
+        {
+            var characterName = characterDisplay.DisplayCharacters(characterOptions);
             var character = new Character(characterName);
-            
-            
+            return character;
         }
     }
 }
