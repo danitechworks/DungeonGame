@@ -31,6 +31,8 @@ namespace DungeonGame.Entities
         {
             var characterName = characterDisplay.DisplayCharacters(characterOptions);
             var character = new Character(characterName);
+
+            characterDisplay.DisplayCharacterStats(character);
             return character;
         }
     }

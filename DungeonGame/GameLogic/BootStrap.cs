@@ -20,8 +20,9 @@ namespace DungeonGame.GameLogic
             builder.RegisterType<PlayerHandler>().SingleInstance();
             builder.RegisterType<CharacterHandler>().SingleInstance();
             builder.RegisterType<MonsterHandler>().SingleInstance();
-            builder.RegisterType<PlayerDisplay>().As<IDisplay>().SingleInstance();
+            builder.RegisterType<PlayerDisplay>().As<IPlayerDisplay>().As<IDisplay>().SingleInstance();
             builder.RegisterType<CharacterDisplay>().As<ICharacterDisplay>().As<IDisplay>().SingleInstance();
+            builder.RegisterType<MonsterDisplay>().As<IMonsterDisplay>().As<IDisplay>().SingleInstance();
             builder.RegisterType<GameHandler>().SingleInstance();
 
             var container = builder.Build();

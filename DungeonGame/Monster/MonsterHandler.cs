@@ -1,4 +1,5 @@
-﻿using DungeonGame.Utilities;
+﻿using DungeonGame.Display;
+using DungeonGame.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,6 +32,12 @@ namespace DungeonGame.Monster
             "Void Stalker"
         };
 
+        private readonly IMonsterDisplay monsterDisplay;
+        public MonsterHandler(IMonsterDisplay monsterDisplay)
+        {
+            this.monsterDisplay = monsterDisplay;
+        }
+
         public Monsters CreateMonster()
         {
             var nameIndex = RandomGenerator.SelectRandomMonster();
@@ -39,7 +46,12 @@ namespace DungeonGame.Monster
             var health = RandomGenerator.SelectRandomHealth();
             var goldReward = RandomGenerator.SelectRandomGoldReward();
             var monster = new Monsters(name, power, health, goldReward);
+
+            monsterDisplay.DisplayMonsterStats(monster);
+
             return monster;
         }
+
     }
 }
+

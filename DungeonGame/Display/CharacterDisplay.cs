@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using DungeonGame.Entities;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,7 @@ namespace DungeonGame.Display
     {
         public string DisplayCharacters(List<string> names)
         {
-            AnsiConsole.Clear();
+            
             ShowBanner();
             var prompt = new SelectionPrompt<string>()
                 .Title("Select a character:");
@@ -22,10 +23,30 @@ namespace DungeonGame.Display
 
         public void ShowBanner()
         {
+            AnsiConsole.Clear();
             AnsiConsole.Write(
                 new FigletText("Dungeon Game")
                     .Centered()
                     .Color(Color.Red));
         }
+
+        public void DisplayCharacterStats(Character character)
+        {
+            ShowBanner();
+
+            AnsiConsole.MarkupLine($"[bold green]Your Character Stats:[/]");
+
+            var table = new Table();
+            table.AddColumn("Character");
+            table.AddColumn("Level");
+            table.AddColumn("Health");
+            table.AddRow(character.CharacterName, character.Level.ToString(), character.Health.ToString());
+            AnsiConsole.Write(table);
+
+            AnsiConsole.MarkupLine($"[gray]press any key to continue[/]");
+            Console.ReadKey();
+
+        }
+
     }
 }

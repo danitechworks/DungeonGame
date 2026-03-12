@@ -29,13 +29,7 @@ namespace DungeonGame.GameLogic
             var character = characterHandler.CreateCharacter();
             var monster = monsterHandler.CreateMonster();
 
-            // debug
-            Console.WriteLine($"[DEBUG] Player created: {player.PlayerName}");
-            Console.WriteLine($"[DEBUG] Character created: {character.CharacterName}, Level: {character.Level}, Health: {character.Health}");
-            Console.WriteLine($"[DEBUG] Monster created: {monster.MonsterName}, Power: {monster.Power}, Health: {monster.Health}, GoldReward: {monster.GoldReward}");
-            Console.WriteLine("=== Debug complete ===");
-            Console.ReadKey();
-            // 
+            
         }   
     }
 }

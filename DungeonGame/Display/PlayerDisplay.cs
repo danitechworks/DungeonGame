@@ -5,7 +5,7 @@ using Spectre.Console;
 
 namespace DungeonGame.Display
 {
-    public class PlayerDisplay : IDisplay
+    public class PlayerDisplay : IDisplay, IPlayerDisplay
     {
         public void ShowBanner()
         {
@@ -15,5 +15,16 @@ namespace DungeonGame.Display
                     .Color(Color.Red));
         }
 
+        public string GetPlayerName()
+        {
+            AnsiConsole.Clear();
+            ShowBanner();
+            var playerName = AnsiConsole.Ask<string>("Enter your [green]player name[/]:");
+
+            AnsiConsole.MarkupLine($"[bold green]Welcome to the game {playerName}[/]");
+            AnsiConsole.MarkupLine($"[gray]press any key to continue[/]");
+            Console.ReadKey();
+            return playerName;
+        }
     }
 }
