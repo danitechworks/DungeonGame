@@ -10,8 +10,9 @@ namespace DungeonGame.Entities
         public string PlayerName { get; set; }
         public bool IsActive { get; set; }
 
-        public Player()
+        public Player(string name)
         {
+            PlayerName = name;
             IsActive = true;
         }
     }
