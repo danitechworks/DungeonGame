@@ -23,8 +23,10 @@ namespace DungeonGame.Entities
         };
         public void CreateCharacter()
         {
-            var characterName = PlayerDisplay.DisplayCharacters(characterOptions);
+            var characterName = display.DisplayCharacters(characterOptions);
             var character = new Character(characterName);
+            
+            
         }
     }
 }

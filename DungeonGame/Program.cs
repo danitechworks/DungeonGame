@@ -1,10 +1,12 @@
-﻿namespace DungeonGame
+﻿using DungeonGame.GameLogic;
+
+namespace DungeonGame
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            BootStrap.Initialize();
         }
     }
 }
