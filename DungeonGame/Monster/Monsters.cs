@@ -12,5 +12,16 @@ namespace DungeonGame.Monster
         public int Health { get; set; }
         public int GoldReward { get; set; }
         public bool IsActive { get; set; }
+
+        public Monsters(string name, int power, int health, int gold)
+        {
+            MonsterName = name;
+            Power = power;
+            Health = health;
+            GoldReward = gold;
+            IsActive = true;
+        }
     }
+
+    
 }
