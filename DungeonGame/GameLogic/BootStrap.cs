@@ -6,6 +6,7 @@ using DungeonGame.Entities;
 using DungeonGame.Display;
 using DungeonGame.Utilities;
 using DungeonGame.Monster;
+using DungeonGame.Battles;
 
 namespace DungeonGame.GameLogic
 {
@@ -24,6 +25,8 @@ namespace DungeonGame.GameLogic
             builder.RegisterType<CharacterDisplay>().As<ICharacterDisplay>().As<IDisplay>().SingleInstance();
             builder.RegisterType<MonsterDisplay>().As<IMonsterDisplay>().As<IDisplay>().SingleInstance();
             builder.RegisterType<GameHandler>().SingleInstance();
+            builder.RegisterType<BattleHandler>().SingleInstance();
+            builder.RegisterType<GameSession>().SingleInstance();
 
             var container = builder.Build();
 

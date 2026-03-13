@@ -54,7 +54,7 @@ namespace DungeonGame.Display
             ShowBanner();
 
             var menu = new SelectionPrompt<string>().Title("What would you like to do?");
-            menu.AddChoice("Fight");
+            menu.AddChoice("Attack");
             menu.AddChoice("See Instructions");
             menu.AddChoice("Exit");
 

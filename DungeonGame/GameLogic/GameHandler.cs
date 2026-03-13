@@ -1,4 +1,5 @@
-﻿using DungeonGame.Display;
+﻿using DungeonGame.Battles;
+using DungeonGame.Display;
 using DungeonGame.Entities;
 using DungeonGame.Monster;
 using DungeonGame.Utilities;
@@ -15,20 +16,25 @@ namespace DungeonGame.GameLogic
         private readonly CharacterHandler characterHandler;
         private readonly MonsterHandler monsterHandler;
         private readonly ICharacterDisplay characterDisplay;
+        private readonly BattleHandler battleHandler;
+        private readonly GameSession gameSession;
 
-        public GameHandler(PlayerHandler playerHandler, CharacterHandler characterHandler, MonsterHandler monsterHandler, ICharacterDisplay characterDisplay)
+        public GameHandler(PlayerHandler playerHandler, CharacterHandler characterHandler, MonsterHandler monsterHandler, ICharacterDisplay characterDisplay, BattleHandler battleHandler, GameSession gameSession)
         {
             this.playerHandler = playerHandler;
             this.characterHandler = characterHandler;
             this.monsterHandler = monsterHandler;
             this.characterDisplay = characterDisplay;
+            this.battleHandler = battleHandler;
+            this.gameSession = gameSession;
         }
 
         public void RunApp()
         {
-            var player = playerHandler.CreatePlayer();
-            var character = characterHandler.CreateCharacter();
-            var monster = monsterHandler.CreateMonster();            
+            
+            gameSession.Player = playerHandler.CreatePlayer(); 
+            gameSession.Character = characterHandler.CreateCharacter();
+            gameSession.Monster = monsterHandler.CreateMonster();            
 
             bool willQuit = false;
             while(willQuit == false)
@@ -36,13 +42,29 @@ namespace DungeonGame.GameLogic
                 var choice = characterDisplay.CharacterMenu();
                 switch (choice)
                 {
-                    case "fight":
+                    case "Attack":
+                        
+                        var defeated = battleHandler.AttackMonster();
+                        
+                        if (defeated)
+                        {
+                            Console.WriteLine($"You won {gameSession.Monster.GoldReward}");
+                            Console.ReadKey();
+                        }                        
+
+                        defeated = battleHandler.AttackCharacter();
+                        if (defeated)
+                        {
+                            Console.WriteLine($"You lost");
+                            Console.ReadKey();
+                        }
                         break;
 
                     case "See Instructions":
                         break;
 
                     case "Exit":
+                        willQuit = false;
                         break;
                 }
             }
