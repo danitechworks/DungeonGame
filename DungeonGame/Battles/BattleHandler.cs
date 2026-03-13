@@ -1,4 +1,5 @@
-﻿using DungeonGame.Display;
+﻿using Autofac.Core;
+using DungeonGame.Display;
 using DungeonGame.Entities;
 using DungeonGame.GameLogic;
 using DungeonGame.Utilities;
@@ -6,6 +7,7 @@ using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DungeonGame.Database;
 
 namespace DungeonGame.Battles
 {
@@ -15,13 +17,15 @@ namespace DungeonGame.Battles
         private readonly ICharacterDisplay characterDisplay;
         private readonly IMonsterDisplay monsterDisplay;
         private readonly IBattleDisplay battleDisplay;
+        private readonly IDataBaseService dbService;
 
-        public BattleHandler(GameSession gameSession, ICharacterDisplay characterDisplay, IMonsterDisplay monsterDisplay, IBattleDisplay battleDisplay)
+        public BattleHandler(GameSession gameSession, ICharacterDisplay characterDisplay, IMonsterDisplay monsterDisplay, IBattleDisplay battleDisplay, IDataBaseService dbService)
         {
             this.gameSession = gameSession;
             this.characterDisplay = characterDisplay;
             this.monsterDisplay = monsterDisplay;
             this.battleDisplay = battleDisplay;
+            this.dbService = dbService;
         }
         public bool AttackMonster()
         {
@@ -67,7 +71,7 @@ namespace DungeonGame.Battles
             didWin = CheckIfWon();
             if (didWin)
             {
-                CreateBattleRecord(false, gameSession.Monster.GoldReward);
+                CreateBattleRecord(false, 0);
                 battleDisplay.YouLost();
                 battleDisplay.DisplayHistory();
                 return true;
@@ -99,6 +103,7 @@ namespace DungeonGame.Battles
                 IsActive = true
             };
             gameSession.BattleHistory.Add(battle);
+            dbService.SaveBattle(battle, gameSession.Character.Id);
         }
     }
 }

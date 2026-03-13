@@ -15,6 +15,6 @@ namespace DungeonGame.Database
         Character GetCharacter(string characterName, int playerId);
         void SaveCharacter(Character character);
 
-        void SaveBattle(Battle battle);
+        void SaveBattle(Battle battle, int characterId);
     }
 }

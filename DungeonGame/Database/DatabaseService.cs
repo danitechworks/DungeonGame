@@ -43,14 +43,23 @@ namespace DungeonGame.Database
         {
             using var conn = new SqlConnection(_connectionString);
             conn.Open();
-            var cmd = new SqlCommand("SELECT Id, CharacterName, Level, Health, Gold, IsActive FROM Characters WHERE PlayerId=@pid", conn);
+
+            var cmd = new SqlCommand(@"
+        SELECT Id, CharacterName, Level, Health, Gold, IsActive
+        FROM Characters
+        WHERE PlayerId=@pid AND CharacterName=@name", conn);
+
             cmd.Parameters.AddWithValue("@pid", playerId);
+            cmd.Parameters.AddWithValue("@name", characterName);
+
             using var reader = cmd.ExecuteReader();
+
             if (reader.Read())
             {
                 return new Character
                 {
                     Id = reader.GetInt32(0),
+                    CharacterName = reader.GetString(1),
                     Level = reader.GetInt32(2),
                     Health = reader.GetInt32(3),
                     Gold = reader.GetInt32(4),
@@ -58,6 +67,7 @@ namespace DungeonGame.Database
                     PlayerId = playerId
                 };
             }
+
             return null;
         }
 
@@ -77,25 +87,30 @@ namespace DungeonGame.Database
             character.Id = (int)cmd.ExecuteScalar();
         }
 
-        public void SaveBattle(Battle battle)
+        public void SaveBattle(Battle battle, int characterId)
         {
             using var conn = new SqlConnection(_connectionString);
             conn.Open();
-            var cmd = new SqlCommand(
-                "INSERT INTO Battles (CharacterId, CharacterName, CharacterHealth, AverageCharacterPower, MonsterName, MonsterHealth, AverageMonsterPower, Result, GoldEarned, BattleDate, IsActive) " +
-                "VALUES (@cid, @cname, @chealth, @capower, @mname, @mhealth, @mapower, @result, @gold, @date, @active)", conn);
 
-            cmd.Parameters.AddWithValue("@cid", battle.CharacterId);
-            cmd.Parameters.AddWithValue("@cname", battle.CharacterName);
-            cmd.Parameters.AddWithValue("@chealth", battle.CharacterHealth);
-            cmd.Parameters.AddWithValue("@capower", battle.AverageCharacterPower);
-            cmd.Parameters.AddWithValue("@mname", battle.MonsterName);
-            cmd.Parameters.AddWithValue("@mhealth", battle.MonsterHealth);
-            cmd.Parameters.AddWithValue("@mapower", battle.AverageMonsterPower);
-            cmd.Parameters.AddWithValue("@result", battle.Result);
-            cmd.Parameters.AddWithValue("@gold", battle.GoldEarned);
-            cmd.Parameters.AddWithValue("@date", battle.BattleDate);
-            cmd.Parameters.AddWithValue("@active", battle.IsActive);
+            var cmd = new SqlCommand(@"
+        INSERT INTO Battles
+        (CharacterId, CharacterName, CharacterHealth, AverageCharacterPower,
+         MonsterName, MonsterHealth, AverageMonsterPower, Result, GoldEarned, BattleDate, IsActive)
+        VALUES
+        (@CharacterId, @CharacterName, @CharacterHealth, @AverageCharacterPower,
+         @MonsterName, @MonsterHealth, @AverageMonsterPower, @Result, @GoldEarned, @BattleDate, @IsActive)", conn);
+
+            cmd.Parameters.AddWithValue("@CharacterId", characterId);
+            cmd.Parameters.AddWithValue("@CharacterName", battle.CharacterName);
+            cmd.Parameters.AddWithValue("@CharacterHealth", battle.CharacterHealth);
+            cmd.Parameters.AddWithValue("@AverageCharacterPower", battle.AverageCharacterPower);
+            cmd.Parameters.AddWithValue("@MonsterName", battle.MonsterName);
+            cmd.Parameters.AddWithValue("@MonsterHealth", battle.MonsterHealth);
+            cmd.Parameters.AddWithValue("@AverageMonsterPower", battle.AverageMonsterPower);
+            cmd.Parameters.AddWithValue("@Result", battle.Result);
+            cmd.Parameters.AddWithValue("@GoldEarned", battle.GoldEarned);
+            cmd.Parameters.AddWithValue("@BattleDate", battle.BattleDate);
+            cmd.Parameters.AddWithValue("@IsActive", battle.IsActive);
 
             cmd.ExecuteNonQuery();
         }

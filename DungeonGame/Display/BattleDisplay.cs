@@ -36,7 +36,7 @@ namespace DungeonGame.Display
             table.AddColumn("Power");
             table.AddColumn("Health");
 
-            table.AddRow(gameSession.Character.CharacterName, gameSession.Character.Power.ToString(), gameSession.Character.Health.ToString());
+            table.AddRow(gameSession.Character?.CharacterName, gameSession.Character.Power.ToString(), gameSession.Character.Health.ToString());
             table.AddRow(gameSession.Monster.MonsterName, gameSession.Monster.Power.ToString(), gameSession.Monster.Health.ToString());
             AnsiConsole.Write(table);
         }
