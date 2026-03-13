@@ -9,5 +9,6 @@ namespace DungeonGame.Display
     public interface IMonsterDisplay
     {
         void DisplayMonsterStats(Monsters monster);
+
     }
 }

@@ -27,6 +27,7 @@ namespace DungeonGame.GameLogic
             builder.RegisterType<GameHandler>().SingleInstance();
             builder.RegisterType<BattleHandler>().SingleInstance();
             builder.RegisterType<GameSession>().SingleInstance();
+            builder.RegisterType<BattleDisplay>().As<IBattleDisplay>().As<IDisplay>().SingleInstance();
 
             var container = builder.Build();
 

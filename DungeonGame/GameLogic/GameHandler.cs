@@ -18,8 +18,9 @@ namespace DungeonGame.GameLogic
         private readonly ICharacterDisplay characterDisplay;
         private readonly BattleHandler battleHandler;
         private readonly GameSession gameSession;
+        private readonly IBattleDisplay battleDisplay;
 
-        public GameHandler(PlayerHandler playerHandler, CharacterHandler characterHandler, MonsterHandler monsterHandler, ICharacterDisplay characterDisplay, BattleHandler battleHandler, GameSession gameSession)
+        public GameHandler(PlayerHandler playerHandler, CharacterHandler characterHandler, MonsterHandler monsterHandler, ICharacterDisplay characterDisplay, BattleHandler battleHandler, GameSession gameSession, IBattleDisplay battleDisplay)
         {
             this.playerHandler = playerHandler;
             this.characterHandler = characterHandler;
@@ -27,6 +28,7 @@ namespace DungeonGame.GameLogic
             this.characterDisplay = characterDisplay;
             this.battleHandler = battleHandler;
             this.gameSession = gameSession;
+            this.battleDisplay = battleDisplay;
         }
 
         public void RunApp()
@@ -64,7 +66,7 @@ namespace DungeonGame.GameLogic
                         break;
 
                     case "Exit":
-                        willQuit = false;
+                        willQuit = true;
                         break;
                 }
             }
