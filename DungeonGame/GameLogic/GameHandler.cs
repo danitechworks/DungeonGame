@@ -72,6 +72,10 @@ namespace DungeonGame.GameLogic
                     case "Exit":
                         willQuit = true;
                         break;
+
+                    case "See Battle History":
+                        battleDisplay.DisplayHistory();
+                        break;
                 }
             }
             

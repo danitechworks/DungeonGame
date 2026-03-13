@@ -56,6 +56,7 @@ namespace DungeonGame.Display
             var menu = new SelectionPrompt<string>().Title("What would you like to do?");
             menu.AddChoice("Attack");
             menu.AddChoice("See Instructions");
+            menu.AddChoice("See Battle History");
             menu.AddChoice("Exit");
 
             var choice = AnsiConsole.Prompt(menu);
