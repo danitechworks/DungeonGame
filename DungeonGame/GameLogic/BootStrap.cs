@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Autofac;
+using DungeonGame.Battles;
+using DungeonGame.Database;
+using DungeonGame.Display;
+using DungeonGame.Entities;
+using DungeonGame.Monster;
+using DungeonGame.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Autofac;
-using DungeonGame.Entities;
-using DungeonGame.Display;
-using DungeonGame.Utilities;
-using DungeonGame.Monster;
-using DungeonGame.Battles;
 
 namespace DungeonGame.GameLogic
 {
@@ -28,6 +29,7 @@ namespace DungeonGame.GameLogic
             builder.RegisterType<BattleHandler>().SingleInstance();
             builder.RegisterType<GameSession>().SingleInstance();
             builder.RegisterType<BattleDisplay>().As<IBattleDisplay>().As<IDisplay>().SingleInstance();
+            builder.RegisterType<DatabaseService>().As<IDataBaseService>().SingleInstance();
 
             var container = builder.Build();
 

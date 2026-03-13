@@ -15,6 +15,7 @@ namespace DungeonGame.Entities
         public int Gold { get; set; }
         public bool IsActive { get; set; }
 
+        public Character() { }
         public Character(string name, int power, int health)
         {
             CharacterName = name;

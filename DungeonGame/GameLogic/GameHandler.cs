@@ -33,10 +33,10 @@ namespace DungeonGame.GameLogic
 
         public void RunApp()
         {
-            
-            gameSession.Player = playerHandler.CreatePlayer(); 
 
-            gameSession.Character = characterHandler.CreateCharacter();
+            gameSession.Player = playerHandler.CreateOrLoadPlayer();
+
+            gameSession.Character = characterHandler.CreateOrLoadCharacter(gameSession.Player.Id);
             gameSession.CharacterStartingHealth = gameSession.Character.Health;
 
             gameSession.Monster = monsterHandler.CreateMonster();

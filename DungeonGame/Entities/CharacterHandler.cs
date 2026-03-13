@@ -1,4 +1,6 @@
-﻿using DungeonGame.Display;
+﻿using Autofac.Core;
+using DungeonGame.Database;
+using DungeonGame.Display;
 using DungeonGame.Utilities;
 using System;
 using System.Collections.Generic;
@@ -22,19 +24,35 @@ namespace DungeonGame.Entities
             "Druid"
         };
 
+        private readonly IDataBaseService dbService;
+
         private readonly ICharacterDisplay characterDisplay;
-        public CharacterHandler(ICharacterDisplay characterDisplay)
+        public CharacterHandler(ICharacterDisplay characterDisplay, IDataBaseService dbService)
         {
             this.characterDisplay = characterDisplay;
+            this.dbService = dbService;
         }
-        public Character CreateCharacter()
+        public Character CreateOrLoadCharacter(int playerId)
         {
-            var power = RandomGenerator.SelectRandomPower();
-            var characterName = characterDisplay.DisplayCharacters(characterOptions);
-            var health = RandomGenerator.SelectRandomHealth();  
-            var character = new Character(characterName, power, health);
+            var name = characterDisplay.DisplayCharacters(characterOptions);
 
-            characterDisplay.DisplayCharacterStats(character);
+            // Try to get character from database
+            var character = dbService.GetCharacter(name, playerId);
+
+            if (character == null)
+            {
+                // Generate random stats
+                int health = RandomGenerator.SelectRandomHealth();
+                int power = RandomGenerator.SelectRandomPower();
+
+                // Use the constructor with parameters
+                character = new Character(name, power, health)
+                {
+                    PlayerId = playerId
+                };
+                dbService.SaveCharacter(character);
+            }
+
             return character;
         }
     }
