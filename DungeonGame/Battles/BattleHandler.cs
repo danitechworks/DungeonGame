@@ -26,6 +26,8 @@ namespace DungeonGame.Battles
         public bool AttackMonster()
         {
             bool didWin;
+
+            gameSession.CharacterPower.Add(gameSession.Character.Power);
             gameSession.Character.Power = RandomGenerator.SelectRandomPower();
             gameSession.Monster.Health -= gameSession.Character.Power;
                         
@@ -39,6 +41,7 @@ namespace DungeonGame.Battles
             if (didWin)
             {
                 gameSession.Character.Gold += gameSession.Monster.GoldReward;
+                CreateBattleRecord(true, gameSession.Monster.GoldReward);
                 return true;
             }
             return false;
@@ -47,6 +50,8 @@ namespace DungeonGame.Battles
         public bool AttackCharacter()
         {
             bool didWin;
+
+            gameSession.MonsterPower.Add(gameSession.Monster.Power);
             gameSession.Monster.Power = RandomGenerator.SelectRandomPower();
             gameSession.Character.Health -= gameSession.Monster.Power;
            
@@ -60,6 +65,7 @@ namespace DungeonGame.Battles
             didWin = CheckIfWon();
             if (didWin)
             {
+                CreateBattleRecord(false, 0);
                 return true;
             }
             return false;
@@ -71,6 +77,22 @@ namespace DungeonGame.Battles
                 return true;
             else
                 return false;
+        }
+
+        public void CreateBattleRecord(bool result, int gold)
+        {
+            var battle = new Battle
+            {
+                CharacterName = gameSession.Character.CharacterName,
+                AverageCharacterPower = (int)gameSession.CharacterPower.Average(),
+                MonsterName = gameSession.Monster.MonsterName,
+                AverageMonsterPower = (int)gameSession.MonsterPower.Average(),
+                Result = result,
+                GoldEarned = gold,
+                BattleDate = DateTime.Now,
+                IsActive = true
+            };
+            gameSession.BattleHistory.Add(battle);
         }
     }
 }

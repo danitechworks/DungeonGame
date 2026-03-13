@@ -15,11 +15,11 @@ namespace DungeonGame.Entities
         public int Gold { get; set; }
         public bool IsActive { get; set; }
 
-        public Character(string name, int power)
+        public Character(string name, int power, int health)
         {
             CharacterName = name;
             Level = 1;
-            Health = 70;
+            Health = health;
             Gold = 0;
             Power = power;
             IsActive = true;

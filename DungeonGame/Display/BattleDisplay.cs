@@ -51,6 +51,8 @@ namespace DungeonGame.Display
                     .Color(Color.Red));
             AnsiConsole.MarkupLine($"[bold yellow]You won {gameSession.Monster.GoldReward} pieces of Gold from {gameSession.Monster.MonsterName}[/]");
 
+            AnsiConsole.MarkupLine($"{gameSession.Monster.MonsterName}'s average power was {gameSession.MonsterPower.Average()} and your average power was {gameSession.CharacterPower.Average()}");
+
             AnsiConsole.MarkupLine($"[gray]press any key to continue[/]");
             Console.ReadKey();
         }
@@ -65,8 +67,14 @@ namespace DungeonGame.Display
                     .Color(Color.Red));
             AnsiConsole.MarkupLine($"[bold red]You did not win any pieces of Gold from {gameSession.Monster.MonsterName}[/]");
 
+            AnsiConsole.MarkupLine($"{gameSession.Monster.MonsterName}'s average power was {gameSession.MonsterPower.Average()} and your average power was {gameSession.CharacterPower.Average()}");
+
             AnsiConsole.MarkupLine($"[gray]press any key to continue[/]");
             Console.ReadKey();
+        }
+
+        public void DisplayHistory()
+        { 
         }
     }
 }

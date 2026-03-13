@@ -7,8 +7,11 @@ namespace DungeonGame.Battles
     public class Battle
     {
         public int Id { get; set; }
-        public int CharacterId { get; set; }   
+        public int CharacterId { get; set; }  
+        public string CharacterName { get; set; }
+        public int AverageCharacterPower { get; set; }
         public string MonsterName { get; set; }
+        public int AverageMonsterPower { get; set; }
         public bool Result { get; set; }
         public int GoldEarned { get; set; }
         public DateTime BattleDate { get; set; }

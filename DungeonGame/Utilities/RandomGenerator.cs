@@ -23,7 +23,7 @@ namespace DungeonGame.Utilities
         public static int SelectRandomHealth()
         {
             Random random = new Random();
-            int randomHealth = random.Next(60, 80);  
+            int randomHealth = random.Next(20, 40);  
             return randomHealth;
         }
 
