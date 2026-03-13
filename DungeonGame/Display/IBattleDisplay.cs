@@ -7,5 +7,7 @@ namespace DungeonGame.Display
     public interface IBattleDisplay
     {
         void DisplayStats();
+        void YouWon();
+        void YouLost();
     }
 }

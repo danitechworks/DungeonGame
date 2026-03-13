@@ -46,19 +46,19 @@ namespace DungeonGame.GameLogic
                 {
                     case "Attack":
                         
-                        var defeated = battleHandler.AttackMonster();
+                        var didWin = battleHandler.AttackMonster();
                         
-                        if (defeated)
+                        if (didWin)
                         {
-                            Console.WriteLine($"You won {gameSession.Monster.GoldReward}");
-                            Console.ReadKey();
-                        }                        
+                            battleDisplay.YouWon();
+                            break;
+                        }
 
-                        defeated = battleHandler.AttackCharacter();
-                        if (defeated)
+                        didWin = battleHandler.AttackCharacter();
+                        if (didWin)
                         {
-                            Console.WriteLine($"You lost");
-                            Console.ReadKey();
+                            battleDisplay.YouLost();
+                            break;
                         }
                         break;
 

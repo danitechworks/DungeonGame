@@ -30,7 +30,7 @@ namespace DungeonGame.Battles
             gameSession.Monster.Health -= gameSession.Character.Power;
                         
             battleDisplay.DisplayStats();
-            AnsiConsole.Markup($"You did {gameSession.Character.Power} damage to {gameSession.Monster.MonsterName}[/]");
+            AnsiConsole.Markup($"You did {gameSession.Character.Power} damage to {gameSession.Monster.MonsterName}\n");
 
             AnsiConsole.MarkupLine($"[gray]press any key to continue[/]");
             Console.ReadKey();
@@ -51,7 +51,7 @@ namespace DungeonGame.Battles
             gameSession.Character.Health -= gameSession.Monster.Power;
            
             battleDisplay.DisplayStats();
-            AnsiConsole.Markup($"{gameSession.Monster.MonsterName} did  {gameSession.Monster.Power} damage to you[/]");
+            AnsiConsole.Markup($"{gameSession.Monster.MonsterName} did  {gameSession.Monster.Power} damage to you\n");
 
             AnsiConsole.MarkupLine($"[gray]press any key to continue[/]");
             Console.ReadKey();
