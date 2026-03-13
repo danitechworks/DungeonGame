@@ -39,13 +39,27 @@ namespace DungeonGame.Display
             var table = new Table();
             table.AddColumn("Character");
             table.AddColumn("Level");
+            table.AddColumn("Power");
             table.AddColumn("Health");
-            table.AddRow(character.CharacterName, character.Level.ToString(), character.Health.ToString());
+            table.AddRow(character.CharacterName, character.Level.ToString(), character.Power.ToString(), character.Health.ToString());
             AnsiConsole.Write(table);
 
             AnsiConsole.MarkupLine($"[gray]press any key to continue[/]");
             Console.ReadKey();
+        }
 
+        public string CharacterMenu()
+        {
+            AnsiConsole.Clear ();
+            ShowBanner();
+
+            var menu = new SelectionPrompt<string>().Title("What would you like to do?");
+            menu.AddChoice("Fight");
+            menu.AddChoice("See Instructions");
+            menu.AddChoice("Exit");
+
+            var choice = AnsiConsole.Prompt(menu);
+            return choice;
         }
 
     }

@@ -29,8 +29,9 @@ namespace DungeonGame.Entities
         }
         public Character CreateCharacter()
         {
+            var power = RandomGenerator.SelectRandomPower();
             var characterName = characterDisplay.DisplayCharacters(characterOptions);
-            var character = new Character(characterName);
+            var character = new Character(characterName, power);
 
             characterDisplay.DisplayCharacterStats(character);
             return character;

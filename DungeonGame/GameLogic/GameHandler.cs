@@ -14,22 +14,41 @@ namespace DungeonGame.GameLogic
         private readonly PlayerHandler playerHandler;
         private readonly CharacterHandler characterHandler;
         private readonly MonsterHandler monsterHandler;
+        private readonly ICharacterDisplay characterDisplay;
 
-        public GameHandler(PlayerHandler playerHandler, CharacterHandler characterHandler, MonsterHandler monsterHandler)
+        public GameHandler(PlayerHandler playerHandler, CharacterHandler characterHandler, MonsterHandler monsterHandler, ICharacterDisplay characterDisplay)
         {
             this.playerHandler = playerHandler;
             this.characterHandler = characterHandler;
             this.monsterHandler = monsterHandler;
+            this.characterDisplay = characterDisplay;
         }
 
         public void RunApp()
         {
-            Console.WriteLine("Welcome to the Dungeon Game!");
             var player = playerHandler.CreatePlayer();
             var character = characterHandler.CreateCharacter();
-            var monster = monsterHandler.CreateMonster();
+            var monster = monsterHandler.CreateMonster();            
 
+            bool willQuit = false;
+            while(willQuit == false)
+            {
+                var choice = characterDisplay.CharacterMenu();
+                switch (choice)
+                {
+                    case "fight":
+                        break;
+
+                    case "See Instructions":
+                        break;
+
+                    case "Exit":
+                        break;
+                }
+            }
             
-        }   
+        } 
+        
+
     }
 }
