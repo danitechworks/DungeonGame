@@ -16,6 +16,9 @@ namespace DungeonGame.GameLogic
         public List<Battle> BattleHistory { get; set; } = new List<Battle>();
         public List<int> CharacterPower { get; set; } = new List<int>();
         public List<int> MonsterPower { get; set; } = new List<int>();
-        
+
+        public int CharacterStartingHealth { get; set; }
+        public int MonsterStartingHealth { get; set; }
+
     }
 }

@@ -9,5 +9,6 @@ namespace DungeonGame.Display
         void DisplayStats();
         void YouWon();
         void YouLost();
+        void DisplayHistory();
     }
 }

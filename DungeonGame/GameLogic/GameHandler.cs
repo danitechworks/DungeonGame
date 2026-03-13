@@ -35,8 +35,12 @@ namespace DungeonGame.GameLogic
         {
             
             gameSession.Player = playerHandler.CreatePlayer(); 
+
             gameSession.Character = characterHandler.CreateCharacter();
-            gameSession.Monster = monsterHandler.CreateMonster();            
+            gameSession.CharacterStartingHealth = gameSession.Character.Health;
+
+            gameSession.Monster = monsterHandler.CreateMonster();
+            gameSession.MonsterStartingHealth = gameSession.Monster.Health;
 
             bool willQuit = false;
             while(willQuit == false)
@@ -50,14 +54,14 @@ namespace DungeonGame.GameLogic
                         
                         if (didWin)
                         {
-                            battleDisplay.YouWon();
+                            
                             break;
                         }
 
                         didWin = battleHandler.AttackCharacter();
                         if (didWin)
                         {
-                            battleDisplay.YouLost();
+                            
                             break;
                         }
                         break;

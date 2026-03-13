@@ -33,7 +33,7 @@ namespace DungeonGame.Battles
                         
             battleDisplay.DisplayStats();
             AnsiConsole.Markup($"You did {gameSession.Character.Power} damage to {gameSession.Monster.MonsterName}\n");
-
+            
             AnsiConsole.MarkupLine($"[gray]press any key to continue[/]");
             Console.ReadKey();
 
@@ -42,6 +42,8 @@ namespace DungeonGame.Battles
             {
                 gameSession.Character.Gold += gameSession.Monster.GoldReward;
                 CreateBattleRecord(true, gameSession.Monster.GoldReward);
+                battleDisplay.YouWon();
+                battleDisplay.DisplayHistory();
                 return true;
             }
             return false;
@@ -57,7 +59,7 @@ namespace DungeonGame.Battles
            
             battleDisplay.DisplayStats();
             AnsiConsole.Markup($"{gameSession.Monster.MonsterName} did  {gameSession.Monster.Power} damage to you\n");
-
+            
             AnsiConsole.MarkupLine($"[gray]press any key to continue[/]");
             Console.ReadKey();
 
@@ -65,7 +67,9 @@ namespace DungeonGame.Battles
             didWin = CheckIfWon();
             if (didWin)
             {
-                CreateBattleRecord(false, 0);
+                CreateBattleRecord(false, gameSession.Monster.GoldReward);
+                battleDisplay.YouLost();
+                battleDisplay.DisplayHistory();
                 return true;
             }
             return false;
@@ -85,8 +89,10 @@ namespace DungeonGame.Battles
             {
                 CharacterName = gameSession.Character.CharacterName,
                 AverageCharacterPower = (int)gameSession.CharacterPower.Average(),
+                CharacterHealth = gameSession.CharacterStartingHealth,
                 MonsterName = gameSession.Monster.MonsterName,
                 AverageMonsterPower = (int)gameSession.MonsterPower.Average(),
+                MonsterHealth = gameSession.MonsterStartingHealth,
                 Result = result,
                 GoldEarned = gold,
                 BattleDate = DateTime.Now,

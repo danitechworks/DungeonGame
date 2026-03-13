@@ -53,8 +53,7 @@ namespace DungeonGame.Display
 
             AnsiConsole.MarkupLine($"{gameSession.Monster.MonsterName}'s average power was {gameSession.MonsterPower.Average()} and your average power was {gameSession.CharacterPower.Average()}");
 
-            AnsiConsole.MarkupLine($"[gray]press any key to continue[/]");
-            Console.ReadKey();
+            
         }
 
         public void YouLost()
@@ -69,12 +68,45 @@ namespace DungeonGame.Display
 
             AnsiConsole.MarkupLine($"{gameSession.Monster.MonsterName}'s average power was {gameSession.MonsterPower.Average()} and your average power was {gameSession.CharacterPower.Average()}");
 
-            AnsiConsole.MarkupLine($"[gray]press any key to continue[/]");
-            Console.ReadKey();
+            
         }
 
         public void DisplayHistory()
-        { 
+        {
+            AnsiConsole.MarkupLine("[bold green]Battle History:[/]");
+
+            var table = new Table();
+            table.AddColumn("Character");
+            table.AddColumn(new TableColumn("Character\nAverage Power").Centered());
+            table.AddColumn("Starting Health");
+            table.AddColumn(new TableColumn("Enemy").Centered());
+            table.AddColumn(new TableColumn("Enemy\nAverage Power").Centered());
+            table.AddColumn(new TableColumn("Enemy\nStarting Health").Centered());
+            table.AddColumn("Result");
+            table.AddColumn("Gold Won");
+            table.AddColumn("Battle Date");
+
+            foreach (var battle in gameSession.BattleHistory)
+            {
+                var status = battle.Result ? "[green]Victory[/]" : "[red]Defeat[/]";
+                var goldText = $"[yellow]{battle.GoldEarned}[/]";
+
+                table.AddRow(
+                    battle.CharacterName,
+                    battle.AverageCharacterPower.ToString(),
+                    battle.CharacterHealth.ToString(),
+                    battle.MonsterName,
+                    battle.AverageMonsterPower.ToString(),
+                    battle.MonsterHealth.ToString(),
+                    status,
+                    goldText,
+                    battle.BattleDate.ToString("MM/dd/yyyy HH:mm") 
+                );
+            }
+
+            AnsiConsole.Write(table);
+            AnsiConsole.MarkupLine($"[gray]press any key to continue[/]");
+            Console.ReadKey();
         }
     }
 }
